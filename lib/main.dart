@@ -2,12 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/start_screen.dart';
 
 void main(List<String> args) {
-  // runAoo is a method is a must method - it actually starts out application.
   runApp(
-    const MaterialApp( // MaterialApp is a base widget
-      home: Scaffold( // Scaffold allows to set the screen.
-        body: StartScreen()
+    MaterialApp(
+      home: Scaffold( // Doesn't take any space by itself
+        body: Container( // Doesn't take any space by itself
+          decoration: const BoxDecoration(
+            gradient:  LinearGradient(
+              colors: [
+                Color.fromARGB(255, 74, 26, 156),
+                Color.fromARGB(255, 107, 15, 168),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: const StartScreen(),
         ),
-      )
-    );  
+      ),
+    )
+  );
 }

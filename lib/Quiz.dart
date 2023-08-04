@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/start_screen.dart';
 
-import 'Questions.dart';
+import 'questions_screen.dart';
 
 class Quiz extends StatefulWidget {
   
@@ -16,9 +16,10 @@ class Quiz extends StatefulWidget {
 class _QuizState  extends State<Quiz> {
 
   Widget? activeScreen;
+  var currentScreen = 'start-screen';
 
   @override
-  void initState() {
+  void initState() { // Executed by Flutter when the StatefulWidget's State object is initialized
     activeScreen = StartScreen(switchScreen);
     super.initState();
   }
@@ -26,11 +27,17 @@ class _QuizState  extends State<Quiz> {
   void switchScreen() { 
     setState(()  { // Set state is a function that's provieded by extending State class.
       activeScreen = const QuestionsScreen();
+      currentScreen = 'questions screen';
     });
   }
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context)  { // Executed by Flutter when the Widget is built for the first time AND after setState() was called
+
+    final screnWidget = currentScreen == 'start-screen' // We can use conditions to decide which screen we want to render.
+              ? StartScreen(switchScreen)
+              : const QuestionsScreen();
+
     return MaterialApp(
       home: Scaffold( // Doesn't take any space by itself
         body: Container( // Doesn't take any space by itself
@@ -44,7 +51,7 @@ class _QuizState  extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: activeScreen,
+          child: screnWidget,
         ),
       ),
     );

@@ -13,9 +13,18 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   @override
-  
   Widget build(BuildContext context) {
-    return const Text('hello');
+   return SizedBox( // An alternative way to center the elemnts on the screen
+    width: double.infinity, // Take as much width as possible
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("The question..."),
+        const SizedBox(height: 30,),
+        ElevatedButton(onPressed: () {}, child: const Text("Answer 1"))
+      ],
+     ),
+   );
   }
 
 }

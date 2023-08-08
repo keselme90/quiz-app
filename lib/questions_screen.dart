@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
 import 'package:quiz_app/data/questions.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 class QuestionsScreen extends StatefulWidget {
   
-  const QuestionsScreen({super.key});
+  final void Function(String answer) onAnswer;
+  
+  const QuestionsScreen({super.key, required this.onAnswer});
 
   @override
   State<QuestionsScreen> createState() {
@@ -16,7 +20,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   var currentQuestionIndex = 0;
 
-  void answerQuestion () {
+  void answerQuestion (String answer) {
+    widget.onAnswer(answer); // widget is a special state property that gives access to the Screeb class properties.
     setState(() {
       currentQuestionIndex ++;
     });
@@ -37,14 +42,18 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           children: [
             Text(
               currentQuestion.question,
-              style: const TextStyle(
-                color: Colors.white
+              style: GoogleFonts.lato(
+                color: const Color.fromARGB(255, 197, 129, 241),
+                fontSize: 24,
+                fontWeight: FontWeight.bold
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30,),
             ...currentQuestion.getShuffledAnswers().map((item) {
-              return AnswerButton(text: item, onPress: answerQuestion);
+              return AnswerButton(text: item, onPress: () {
+                answerQuestion(item);
+              });
             })
           ],
         ),

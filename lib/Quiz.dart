@@ -17,6 +17,7 @@ class _QuizState  extends State<Quiz> {
 
   Widget? activeScreen;
   var currentScreen = 'start-screen';
+  final List<String> selectedAnswers = [];
 
   @override
   void initState() { // Executed by Flutter when the StatefulWidget's State object is initialized
@@ -24,9 +25,13 @@ class _QuizState  extends State<Quiz> {
     super.initState();
   }
 
-  void switchScreen() { 
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+  }
+
+    void switchScreen() { 
     setState(()  { // Set state is a function that's provieded by extending State class.
-      activeScreen = const QuestionsScreen();
+      // activeScreen = const QuestionsScreen(chooseAnswer);
       currentScreen = 'questions screen';
     });
   }
@@ -36,7 +41,7 @@ class _QuizState  extends State<Quiz> {
 
     final screnWidget = currentScreen == 'start-screen' // We can use conditions to decide which screen we want to render.
               ? StartScreen(switchScreen)
-              : const QuestionsScreen();
+              : QuestionsScreen(onAnswer: chooseAnswer,);
 
     return MaterialApp(
       home: Scaffold( // Doesn't take any space by itself

@@ -28,6 +28,10 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummary();
+    final numberOfTotalQuestions = questions.length;
+    final numberOfCorrectQuestions = summaryData.where((element) => element['user_answer'] == element['correct_answer']).length;
+
     return SizedBox( // An alternative way to center the elemnts on the screen
         width: double.infinity, // Take as much width as possible
         child: Container(
@@ -35,9 +39,9 @@ class ResultsScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('You answered x out of y question correctly'),
+              Text('You answered $numberOfCorrectQuestions out of $numberOfTotalQuestions question correctly'),
               const SizedBox(height: 30,),
-              QuestionsSummary(getSummary()),
+              QuestionsSummary(summaryData),
               const SizedBox(height: 30,),
               TextButton(onPressed: onRetakQuiz, child: const Text('Retake Quiz!'))
             ]

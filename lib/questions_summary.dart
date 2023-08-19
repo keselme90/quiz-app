@@ -14,12 +14,15 @@ class QuestionsSummary extends StatelessWidget {
         return Row(
           children: [
             Text(((data['question_index'] as int) + 1).toString()),
-            Column(children: [
-              Text(data['question'] as String),
-              const SizedBox(height: 5,),
-              Text(data['user_answer'] as String),
-              Text(data['correct_answer'] as String)
-            ],)
+            Expanded( // Without Expanced widget Column takes an infinite amount of width, even if it goes beyond the screen boundaries. 
+                      // Allows the child to take all avaiable width along the main axis. The widget passed as a child to Exapanded cannot take more width than the Expaned's parent widget.
+              child: Column(children: [
+                Text(data['question'] as String),
+                const SizedBox(height: 5,),
+                Text(data['user_answer'] as String),
+                Text(data['correct_answer'] as String)
+              ],),
+            )
           ],
         );
       }).toList(), // map function returns iterable object, so we are converting it to a list

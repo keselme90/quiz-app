@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/models/quiz_question.dart';
 import 'package:quiz_app/questions_summary.dart';
 
@@ -39,15 +40,25 @@ class ResultsScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('You answered $numberOfCorrectQuestions out of $numberOfTotalQuestions question correctly'),
+              Text(
+                'You answered $numberOfCorrectQuestions out of $numberOfTotalQuestions question correctly',
+                style:GoogleFonts.lato(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                  ),
+              ),
               const SizedBox(height: 30,),
               QuestionsSummary(summaryData),
               const SizedBox(height: 30,),
-              TextButton(onPressed: onRetakQuiz, child: const Text('Retake Quiz!'))
+              OutlinedButton.icon(onPressed: onRetakQuiz,
+                style: OutlinedButton.styleFrom(foregroundColor: Colors.white),
+                icon: const Icon(Icons.refresh),
+                label: const Text('Retake Quiz!')
+              ),
             ]
           )
         ) 
       );
   }
-
 }
